@@ -4,10 +4,10 @@ x=int(input())
 
 
 if x == 1:
-    print("수식을 입력하시오")
+    print("***수식을 입력하시오: ")
     y=input("")
     value=eval(y)
-    print(value)
+    print("%s 결과는 %f 입니다." %(y, value))
 
 
 else:
@@ -22,12 +22,12 @@ else:
     temp=0
     if(add1<add2):
         add1,add2=add2,add1
-
+    num=add2
     result=0
     while add2<=add1:
         result+=add2
         add2+=1
-    print(result)
+    print("%d+...+%d는 %d입니다" %(num, add1, result))
 
 
 

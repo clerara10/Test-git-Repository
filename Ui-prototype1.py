@@ -27,6 +27,7 @@ class DeepFaceUI:
 
         self.attend_button = tk.Button(root, text="수업 듣기", command=self.select_class, font=("Arial", 12))
         self.focus_button = tk.Button(root, text="집중도 분석 확인", command=self.show_focus_result, font=("Arial", 12))
+        self.quit_button = tk.Button(root, text="프로그램 종료", command=self.quit_program, font=("Arial", 12))
 
     def verify_student(self):
         self.student_id = self.id_entry.get().strip()
@@ -52,6 +53,7 @@ class DeepFaceUI:
         self.check_button.pack_forget()
         self.attend_button.pack(pady=20)
         self.focus_button.pack(pady=10)
+        self.quit_button.pack(pady=10)
 
     def select_class(self):
         popup = tk.Toplevel(self.root)
@@ -67,7 +69,6 @@ class DeepFaceUI:
         self.class_name = class_name
         popup.destroy()
 
-        # 각 강의에 해당하는 유튜브 링크
         youtube_links = {
             "1강": "https://www.youtube.com/watch?v=jPs3n9Vou9c",
             "2강": "https://www.youtube.com/watch?v=jPs3n9Vou9c",
@@ -115,8 +116,7 @@ class DeepFaceUI:
         stop_button.pack()
 
     def show_focus_result(self):
-        csv_path = "emotion_summary.csv"  # 저장한 감정 분석 CSV 파일 경로
-
+        csv_path = "emotion_summary.csv"
         if not os.path.isfile(csv_path):
             messagebox.showerror("파일 없음", f"{csv_path} 파일이 존재하지 않습니다.")
             return
@@ -124,12 +124,15 @@ class DeepFaceUI:
         try:
             if platform.system() == "Windows":
                 os.startfile(csv_path)
-            elif platform.system() == "Darwin":  # macOS
+            elif platform.system() == "Darwin":
                 subprocess.call(["open", csv_path])
-            else:  # Linux
+            else:
                 subprocess.call(["xdg-open", csv_path])
         except Exception as e:
             messagebox.showerror("실패", f"CSV 파일을 열 수 없습니다:\n{e}")
+
+    def quit_program(self):
+        self.root.quit()  # 또는 self.root.destroy()
 
 if __name__ == "__main__":
     root = tk.Tk()
